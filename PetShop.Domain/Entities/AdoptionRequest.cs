@@ -28,6 +28,16 @@ public class AdoptionRequest : IEntity<int>
     public Adoption Adoption { get; set; }
     
     /// <summary>
+    /// The ID of the user who made the request.
+    /// </summary>
+    public string RequesterUserId { get; set; }
+
+    /// <summary>
+    /// The user who made the request.
+    /// </summary>
+    public ApplicationUser User { get; set; }
+    
+    /// <summary>
     /// The ID of the location where the pet resides 
     /// </summary>
     public int LocationId { get; set; }
