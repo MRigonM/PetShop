@@ -1,6 +1,8 @@
-﻿namespace PetShop.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class ApplicationUser
+namespace PetShop.Domain.Entities;
+
+public class ApplicationUser : IdentityUser
 {
     /// <summary>
     /// The user's first name.

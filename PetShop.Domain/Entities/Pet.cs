@@ -1,8 +1,9 @@
 ﻿using PetShop.Domain.Enums;
+using PetShop.Domain.Interfaces;
 
 namespace PetShop.Domain.Entities;
 
-public class Pet
+public class Pet : IEntity<int>
 {
     public int Id { get; set; }
     
