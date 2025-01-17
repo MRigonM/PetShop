@@ -28,10 +28,4 @@ public class ApplicationUser : IdentityUser
     /// A collection of pets owned by the user.
     /// </summary>
     public ICollection<Pet> Pets { get; set; }
-
-    /// <summary>
-    /// A collection of adoption requests made by the user.
-    /// </summary>
-    public ICollection<AdoptionRequest> AdoptionRequests { get; set; }
-
 }

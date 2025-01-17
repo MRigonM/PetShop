@@ -16,8 +16,6 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         _configuration = configuration;
     }
-    public DbSet<Adoption> Adoptions { get; set; }
-    public DbSet<AdoptionRequest> AdoptionRequests { get; set; }
     public DbSet<Breed> Breeds { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Country> Countries { get; set; }
