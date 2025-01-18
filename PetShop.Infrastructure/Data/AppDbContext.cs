@@ -7,7 +7,7 @@ using PetShop.Domain.Entities;
 
 namespace PetShop.Infrastructure.Data;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser>
+public class AppDbContext : IdentityDbContext
 {
     private readonly IConfiguration _configuration;
     
@@ -16,6 +16,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         _configuration = configuration;
     }
+    
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
+    
     public DbSet<Breed> Breeds { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Country> Countries { get; set; }

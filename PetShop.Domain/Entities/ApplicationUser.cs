@@ -18,11 +18,6 @@ public class ApplicationUser : IdentityUser
     /// The user's address.
     /// </summary>
     public string? Address { get; set; }
-
-    /// <summary>
-    /// The user's address.
-    /// </summary>
-    public string? ImageUrl { get; set; }
     
     /// <summary>
     /// A collection of pets owned by the user.
