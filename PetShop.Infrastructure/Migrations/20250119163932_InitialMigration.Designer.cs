@@ -12,7 +12,7 @@ using PetShop.Infrastructure.Data;
 namespace PetShop.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250118223718_InitialMigration")]
+    [Migration("20250119163932_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

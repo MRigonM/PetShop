@@ -7,7 +7,6 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        // Set the path to the Web project's appsettings.json
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../PetShop.Web"))
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
