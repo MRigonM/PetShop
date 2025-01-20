@@ -38,6 +38,11 @@ public class PetCreateRequest
     /// The Id of the city where the pet is located.
     /// </summary>
     public int CityId { get; set; }
+    
+    /// <summary>
+    /// The ID of the user who posted the pet.
+    /// </summary>
+    public string PostedByUserId { get; set; }
 
     /// <summary>
     /// The address where the pet is located.
