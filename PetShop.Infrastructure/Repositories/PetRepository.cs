@@ -1,5 +1,4 @@
-﻿using System.Linq.Dynamic.Core;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Enums;
 using PetShop.Domain.Helpers;
@@ -104,7 +103,6 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
             .Include(p => p.Location)
             .ThenInclude(p => p.City)
             .ThenInclude(p => p.Country)
-            //TODO  .Include(p => p.AdoptionRequests) 
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
