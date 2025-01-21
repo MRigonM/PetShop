@@ -1,6 +1,8 @@
-﻿namespace PetShop.Domain.Entities;
+﻿using PetShop.Domain.Interfaces;
 
-public class PetImage
+namespace PetShop.Domain.Entities;
+
+public class PetImage : IEntity<int>
 {
     public int Id { get; set; }
     public int PetId { get; set; }

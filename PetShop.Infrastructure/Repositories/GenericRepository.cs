@@ -13,28 +13,28 @@ public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEnt
         _dbSet = context.Set<TEntity>();
     }
     
-    public async Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<TEntity?> GetByIdAsync(int id)
     {
-        return await _dbSet.FindAsync([id], cancellationToken);
+        return await _dbSet.FindAsync([id]);
     }
     
-    public async Task<IEnumerable<TEntity>?> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TEntity>?> GetAllAsync()
     {
-        return await _dbSet.ToListAsync(cancellationToken);
+        return await _dbSet.ToListAsync();
     }
     
-    public async Task<TKey> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task<TKey> InsertAsync(TEntity entity)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        await _dbSet.AddAsync(entity);
         return entity.Id;
     }
     
-    public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public Task UpdateAsync(TEntity entity)
     {
         return Task.FromResult(_dbSet.Update(entity));
     }
     
-    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public Task DeleteAsync(TEntity entity)
     {
         return Task.FromResult(_dbSet.Remove(entity));
     }

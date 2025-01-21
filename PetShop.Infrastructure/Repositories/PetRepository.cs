@@ -11,27 +11,27 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
     {
     }
 
-    public Task<(List<Pet> Pets, int TotalCount)> GetAvailablePetsWithDetailsAsync(QueryParams queryParams, CancellationToken cancellationToken)
+    public Task<(List<Pet> Pets, int TotalCount)> GetAvailablePetsWithDetailsAsync(QueryParams queryParams)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Pet>> GetByUserIdAsync(string userId, CancellationToken cancellationToken)
+    public Task<IEnumerable<Pet>> GetByUserIdAsync(string userId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Pet?> GetPetByIdWithRelatedEntitiesAsync(int id, CancellationToken cancellationToken = default)
+    public Task<Pet?> GetPetByIdWithRelatedEntitiesAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Pet?> GetPetByIdWithRelatedEntitiesAsync(int id, string userId, CancellationToken cancellationToken = default)
+    public Task<Pet?> GetPetByIdWithRelatedEntitiesAsync(int id, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Pet>> GetPetsByUserIdWithUserDetailsAsync(string userId, CancellationToken cancellationToken)
+    public Task<IEnumerable<Pet>> GetPetsByUserIdWithUserDetailsAsync(string userId)
     {
         throw new NotImplementedException();
     }

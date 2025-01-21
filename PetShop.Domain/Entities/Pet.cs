@@ -48,5 +48,10 @@ public class Pet : IEntity<int>
     /// Images of the pet
     /// </summary>
     public ICollection<PetImage> PetImages { get; set; } = new List<PetImage>();
+    
+    /// <summary>
+    /// The ID of the user who posted the pet.
+    /// </summary>
+    public required string PostedByUserId { get; set; }
 
 }

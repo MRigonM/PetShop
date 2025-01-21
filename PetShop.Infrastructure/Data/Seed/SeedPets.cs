@@ -25,6 +25,7 @@ public class SeedPets
                     "Buddy is the perfect adventure buddy! Whether it's a long walk in the park or just chilling at home, he’s always there to make you smile with his playful and loyal personality. Loves belly rubs and fetch!",
                 Status = PetStatus.Approved,
                 LocationId = 1, // Pristina
+                PostedByUserId = userAsd.Id
             },
             new Pet
             {
@@ -34,6 +35,7 @@ public class SeedPets
                 About = "Max is a little bundle of joy who’s still learning his way around the world! He’s full of energy and loves meeting new people. If you’re looking for a loyal and goofy companion, Max is your guy!",
                 Status = PetStatus.Approved,
                 LocationId = 6, // Tirana
+                PostedByUserId = userAsd.Id
             },
             new Pet
             {
@@ -43,6 +45,7 @@ public class SeedPets
                 About = "Whiskers is the ultimate lap cat! With a fluffy coat, he's the perfect companion for those quiet, cozy nights. He enjoys soft purring naps and watching the world go by from the window.",
                 Status = PetStatus.Available,
                 LocationId = 3, // Mitrovica
+                PostedByUserId = userBob.Id
             },
         };
         
