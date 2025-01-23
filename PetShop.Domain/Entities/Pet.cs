@@ -1,4 +1,5 @@
-﻿using PetShop.Domain.Enums;
+﻿using Microsoft.AspNetCore.Identity;
+using PetShop.Domain.Enums;
 using PetShop.Domain.Interfaces;
 
 namespace PetShop.Domain.Entities;
@@ -53,5 +54,10 @@ public class Pet : IEntity<int>
     /// The ID of the user who posted the pet.
     /// </summary>
     public required string PostedByUserId { get; set; }
+    
+    /// <summary>
+    /// The user who made the request.
+    /// </summary>
+    public IdentityUser User { get; set; }
 
 }

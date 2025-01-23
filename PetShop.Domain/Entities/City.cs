@@ -8,4 +8,5 @@ public class City : IEntity<int>
     public string Name { get; set; }
     public int CountryId { get; set; }
     public Country Country { get; set; }
+    public ICollection<Location> Locations { get; set; } = new List<Location>();
 }

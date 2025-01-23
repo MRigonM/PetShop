@@ -19,4 +19,9 @@ public class Breed : IEntity<int>
     /// The name of the breed
     /// </summary>
     public string Name { get; set; }
+    
+    /// <summary>
+    /// The pets of this breed
+    /// </summary>
+    public ICollection<Pet> Pets { get; set; } = new List<Pet>();
 }

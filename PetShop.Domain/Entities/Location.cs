@@ -9,5 +9,6 @@ public class Location : IEntity<int>
     public City City { get; set; }
     public string Address { get; set; }
     public string PostalCode { get; set; }
+    public ICollection<Pet> Pets { get; set; } = new List<Pet>();
 
 }
