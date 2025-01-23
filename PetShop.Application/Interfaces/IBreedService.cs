@@ -5,9 +5,9 @@ namespace PetShop.Application.Interfaces;
 
 public interface IBreedService
 {
-    Task<Result<bool>> CreateBreedAsync(Breed breed, CancellationToken cancellationToken);
-    Task<Result<List<Breed>>> GetAllBreedsAsync(CancellationToken cancellationToken);
-    Task<Result<Breed>> GetBreedByIdAsync(int breedId, CancellationToken cancellationToken);
-    Task<Result<bool>> UpdateBreedAsync(Breed breed, CancellationToken cancellationToken);
-    Task<Result<bool>> DeleteBreedAsync(int breedId, CancellationToken cancellationToken);
+    Task<Result<bool>> CreateBreedAsync(Breed breed);
+    Task<Result<List<Breed>>> GetAllBreedsAsync();
+    Task<Result<Breed>> GetBreedByIdAsync(int breedId);
+    Task<Result<bool>> UpdateBreedAsync(Breed breed);
+    Task<Result<bool>> DeleteBreedAsync(int breedId);
 }
