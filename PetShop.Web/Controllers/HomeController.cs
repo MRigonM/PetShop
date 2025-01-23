@@ -1,24 +1,48 @@
 using System.Diagnostics;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.Application.Interfaces;
+using PetShop.Domain.Helpers;
 using PetShop.Models;
+using PetShop.Models.Pet;
 
 namespace PetShop.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IPetService _petService;
+    private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger)
+    public async Task<IActionResult> Index(QueryParams queryParams)
     {
-        _logger = logger;
+        var result = await _petService.GetAvailablePetsWithDetailsAsync(queryParams);
+
+        if (!result.IsSuccess)
+        {
+            return View("Error");
+        }
+
+        var petViewModels = _mapper.Map<IEnumerable<PetViewModel>>(result.Value.Pets);
+
+        return View(petViewModels);
     }
 
-    public IActionResult Index()
+    public IActionResult Adopt()
     {
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+
+    public IActionResult WishList()
+    {
+        return View();
+    }
+
+    public IActionResult ContactUs()
     {
         return View();
     }
