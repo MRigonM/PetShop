@@ -19,4 +19,6 @@ public class UserPetRequest
     public ICollection<PetImage> PetImages { get; set; }
     public string PostedByUserId { get; set; }
     public ApplicationUser User { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

@@ -14,7 +14,6 @@ public class PetResponse
     public Breed Breed { get; set; }
     public string AgeYears { get; set; }
     public string About { get; set; }
-    public decimal Price { get; set; }
     public PetStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
     public int LocationId { get; set; }
@@ -23,4 +22,6 @@ public class PetResponse
     public string PostedByUserId { get; set; }
     public ApplicationUser User { get; set; }
     public int TotalPages { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

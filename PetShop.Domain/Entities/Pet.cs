@@ -36,6 +36,11 @@ public class Pet : IEntity<int>
     public PetStatus Status { get; set; }
     
     /// <summary>
+    /// The date and time when the pet was created
+    /// </summary>
+    public DateTime CreatedAt { get; set; }
+    
+    /// <summary>
     /// The Id of the location where the pet is located
     /// </summary>
     public int LocationId { get; set; }
@@ -58,6 +63,17 @@ public class Pet : IEntity<int>
     /// <summary>
     /// The user who made the request.
     /// </summary>
-    public IdentityUser User { get; set; }
+    public ApplicationUser User { get; set; }
+    
+    /// <summary>
+    /// Gets or sets a value indicating whether the entity is soft-deleted.
+    /// </summary>
+    /// 
+    public bool IsDeleted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the timestamp of when the entity was soft-deleted.
+    /// </summary>
+    public DateTimeOffset? DeletedAt { get; set; }
 
 }

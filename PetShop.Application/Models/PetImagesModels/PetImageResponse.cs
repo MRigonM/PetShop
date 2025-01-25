@@ -11,4 +11,6 @@ public class PetImageResponse
     public string Description { get; set; }
     public bool IsPrimary { get; set; }
     public DateTime UploadedAt { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

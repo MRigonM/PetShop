@@ -15,7 +15,6 @@ public class PetRequest
     public int AgeYears { get; set; }
     public int AgeMonths { get; set; }
     public string About { get; set; }
-    public decimal Price { get; set; }
     public PetStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
     public int LocationId { get; set; }
@@ -23,4 +22,6 @@ public class PetRequest
     public ICollection<PetImageRequest> PetImages { get; set; }  = new List<PetImageRequest>();
     public string PostedByUserId { get; set; }
     public ApplicationUser User { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }
