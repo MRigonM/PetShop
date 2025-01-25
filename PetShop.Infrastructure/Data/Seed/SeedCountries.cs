@@ -14,11 +14,15 @@ public static class SeedCountries
         {
             new Country
             {
-                Name = "Kosova"
+                Name = "Kosova",
+                IsDeleted = false,
+                DeletedAt = null
             },
             new Country
             {
-                Name = "Albania"
+                Name = "Albania",
+                IsDeleted = false,
+                DeletedAt = null
             }
         };
 
