@@ -15,10 +15,16 @@ public static class SeedSpecies
             new()
             {
                 Name = "Dog",
+                Description = "Domesticated carnivorous mammal",
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
             },
             new()
             {
                 Name = "Cat",
+                Description = "Small domesticated carnivorous mammal",
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
             }
         };
 
