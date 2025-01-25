@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
+using PetShop.Application.Mappings;
 using PetShop.Domain.Abstractions;
+using PetShop.Mappings;
 
 namespace PetShop.Modules;
 
@@ -13,9 +15,10 @@ public class CoreModule : IModule
     }
     public void Load(IServiceCollection services)
     {
+        services.Configure<ApiSettings>(_configuration.GetSection(ApiSettings.SectionName));
         services.AddControllersWithViews();
-        services.AddRazorPages();
         services.AddRouting(options => options.LowercaseUrls = true);
+        services.AddAutoMapper(typeof(ApplicationMappingProfiles).Assembly, typeof(WebMappingProfile).Assembly);
         services.AddSignalR();
         services.AddApiVersioning(options =>
         {
