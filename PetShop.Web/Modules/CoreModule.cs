@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using PetShop.Application.Mappings;
+using PetShop.Configurations;
 using PetShop.Domain.Abstractions;
 using PetShop.Mappings;
 

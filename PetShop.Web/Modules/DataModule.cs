@@ -29,8 +29,11 @@ public class DataModule : IModule
         }
 
         services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(connectionString)
+            options
+                .UseSqlServer(connectionString)
+                .AddInterceptors(new SoftDeleteInterceptor())
         );
+        
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<QueryParams>();
