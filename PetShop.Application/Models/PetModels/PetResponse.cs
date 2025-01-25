@@ -20,5 +20,7 @@ public class PetResponse
     public int LocationId { get; set; }
     public Location Location { get; set; }
     public ICollection<PetImageResponse> PetImages { get; set; } = new List<PetImageResponse>();
+    public string PostedByUserId { get; set; }
+    public ApplicationUser User { get; set; }
     public int TotalPages { get; set; }
 }

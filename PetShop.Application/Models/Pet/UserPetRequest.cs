@@ -13,9 +13,10 @@ public class UserPetRequest
     public string AgeYears { get; set; }
     public string About { get; set; }
     public PetStatus Status { get; set; }
+    public DateTime CreatedAt { get; set; }
     public int LocationId { get; set; }
     public Location Location { get; set; }
     public ICollection<PetImage> PetImages { get; set; }
     public string PostedByUserId { get; set; }
-    public IdentityUser User { get; set; }
+    public ApplicationUser User { get; set; }
 }

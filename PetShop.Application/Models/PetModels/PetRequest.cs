@@ -21,4 +21,6 @@ public class PetRequest
     public int LocationId { get; set; }
     public Location Location { get; set; }
     public ICollection<PetImageRequest> PetImages { get; set; }  = new List<PetImageRequest>();
+    public string PostedByUserId { get; set; }
+    public ApplicationUser User { get; set; }
 }
