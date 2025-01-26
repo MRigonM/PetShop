@@ -38,6 +38,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult AdminDashboard()
+    {
+        return View();
+    }
+
     public IActionResult AboutUs()
     {
         return View();
