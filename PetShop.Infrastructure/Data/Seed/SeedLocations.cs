@@ -16,12 +16,16 @@ public static class SeedLocations
             {
                 CityId = 1, // Pristina
                 Address = "Bulevardi Nënë Tereza 1",
-                PostalCode = "10000"
+                PostalCode = "10000",
+                IsDeleted = false,
+                DeletedAt = null
             },
             new Location
             {
                 CityId = 3, // Mitrovica
-                Address = "Rruga Adem Jashari 9"
+                Address = "Rruga Adem Jashari 9",
+                IsDeleted = false,
+                DeletedAt = null
             },
         };
 

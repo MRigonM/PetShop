@@ -12,7 +12,6 @@ public class PetEditViewModel
     public int SpeciesId { get; set; }
     public string AgeYears { get; set; }
     public string About { get; set; }
-    public decimal Price { get; set; }
     public int CityId { get; set; }
     public int CountryId { get; set; }
     public string Address { get; set; }

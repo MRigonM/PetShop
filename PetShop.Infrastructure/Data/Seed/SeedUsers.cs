@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PetShop.Domain.Entities;
 
 namespace PetShop.Infrastructure.Data.Seed;
 
@@ -8,32 +9,42 @@ public class SeedUsers
 {
     private const string SeedUsersPassword = "Password@123";
 
-    public static async Task SeedUserData(UserManager<IdentityUser> userManager)
+    public static async Task SeedUserData(UserManager<ApplicationUser> userManager)
     {
         if (await userManager.Users.AnyAsync()) return;
 
-        var userAsd = new IdentityUser()
+        var userAsd = new ApplicationUser
         {
             UserName = Guid.NewGuid().ToString(),
-            Email = "asd@qwe.com"
+            Email = "asd@qwe.com",
+            FirstName = "Tester",
+            LastName = "Maverick",
         };
 
-        var userJohn = new IdentityUser()
+        var userJohn = new ApplicationUser
         {
             UserName = Guid.NewGuid().ToString(),
-            Email = "john@example.com"
+            Email = "john@example.com",
+            FirstName = "john",
+            LastName = "doe"
         };
 
-        var userBob = new IdentityUser()
+        var userBob = new ApplicationUser
         {
             UserName = Guid.NewGuid().ToString(),
-            Email = "bob@example.com"
+            Email = "bob@example.com",
+            FirstName = "bob",
+            LastName = "doe",
+            IsDeleted = false,
+            Address = "123 Main St"
         };
 
-        var userJane = new IdentityUser()
+        var userJane = new ApplicationUser
         {
             UserName = Guid.NewGuid().ToString(),
-            Email = "jane@example.com"
+            Email = "jane@example.com",
+            FirstName = "jane",
+            LastName = "doe"
         };
 
         await CreateUserWithClaims(userManager, userAsd, "asdqwe123$A");
@@ -42,7 +53,7 @@ public class SeedUsers
         await CreateUserWithClaims(userManager, userJane, SeedUsersPassword);
     }
 
-    private static async Task CreateUserWithClaims(UserManager<IdentityUser> userManager, IdentityUser user, string password)
+    private static async Task CreateUserWithClaims(UserManager<ApplicationUser> userManager, ApplicationUser user, string password)
     {
         var createUserResult = await userManager.CreateAsync(user, password);
 
@@ -52,6 +63,8 @@ public class SeedUsers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.GivenName, user.FirstName),
+                new Claim(ClaimTypes.Surname, user.LastName),
                 new Claim(ClaimTypes.Role, "User")
             };
 

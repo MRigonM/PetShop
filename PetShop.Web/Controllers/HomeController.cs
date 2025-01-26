@@ -13,6 +13,12 @@ public class HomeController : Controller
     private readonly IPetService _petService;
     private readonly IMapper _mapper;
 
+    public HomeController(IPetService petService, IMapper mapper)
+    {
+        _petService = petService;
+        _mapper = mapper;
+    }
+
     public async Task<IActionResult> Index(QueryParams queryParams)
     {
         var result = await _petService.GetAvailablePetsWithDetailsAsync(queryParams);

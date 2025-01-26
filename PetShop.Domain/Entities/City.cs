@@ -9,4 +9,6 @@ public class City : IEntity<int>
     public int CountryId { get; set; }
     public Country Country { get; set; }
     public ICollection<Location> Locations { get; set; } = new List<Location>();
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

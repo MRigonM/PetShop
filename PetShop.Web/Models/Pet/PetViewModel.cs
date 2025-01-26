@@ -13,6 +13,8 @@ public class PetViewModel
     public BreedViewModel Breed { get; set; }
     public LocationViewModel Location { get; set; }
     public string AgeYears { get; set; }
+    public UserViewModel User { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     public PetShop.Domain.Entities.Pet Pet { get; set; }
     public int TotalPages { get; set; }
 }

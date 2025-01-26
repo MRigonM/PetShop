@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using PetShop.Application.Models.Pet;
 
 namespace PetShop.Application.Models;
 
 public class PaginatedUserPetsResponse
 {
-    public IEnumerable<IdentityUser> Pets { get; set; }
+    public IEnumerable<UserPetResponse> Pets { get; set; }
 
     public int TotalCount { get; set; }
 

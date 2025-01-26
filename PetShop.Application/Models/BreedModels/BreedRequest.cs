@@ -11,4 +11,6 @@ public class BreedRequest
     public string Name { get; set; }
     public string Description { get; set; }
     public ICollection<PetRequest> Pets { get; set; } = new List<PetRequest>();
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

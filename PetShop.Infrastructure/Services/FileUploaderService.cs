@@ -5,7 +5,7 @@ using PetShop.Domain.Common;
 
 namespace PetShop.Infrastructure.Services;
 
-public class FileUploaderService: IFileUploaderService
+public class FileUploaderService : IFileUploaderService
 {
     private readonly ILogger<FileUploaderService> _logger;
 
@@ -18,6 +18,10 @@ public class FileUploaderService: IFileUploaderService
     private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
     private const int MaxFileSize = 10 * 1024 * 1024;
 
+    /// <summary>
+    /// Uploads a file to the specified directory after validating it.
+    /// </summary>
+    /// <param name="file">The file to be uploaded.</param>
     public async Task<Result<string>> UploadFileAsync(IFormFile file)
     {
         try
@@ -69,5 +73,3 @@ public class FileUploaderService: IFileUploaderService
         }
     }
 }
-
-
