@@ -8,7 +8,7 @@ public class LocationViewModel
     public int CityId { get; set; }
     public CityViewModel City { get; set; }
     public string Address { get; set; }
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
     public List<PetViewModel> Pets { get; set; } = new List<PetViewModel>();
     public bool IsDeleted { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }

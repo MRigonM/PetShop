@@ -12,7 +12,7 @@ using PetShop.Infrastructure.Data;
 namespace PetShop.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250126000606_InitialMigration")]
+    [Migration("20250126145241_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -351,7 +351,6 @@ namespace PetShop.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
