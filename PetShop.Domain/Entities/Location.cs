@@ -10,5 +10,7 @@ public class Location : IEntity<int>
     public string Address { get; set; }
     public string PostalCode { get; set; }
     public ICollection<Pet> Pets { get; set; } = new List<Pet>();
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 
 }

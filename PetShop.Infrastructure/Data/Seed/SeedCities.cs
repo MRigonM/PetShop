@@ -15,17 +15,23 @@ public static class SeedCities
             new City
             {
                 Name = "Prishtinë",
-                CountryId = 1
+                CountryId = 1,
+                IsDeleted = false,
+                DeletedAt = null
             },
             new City
             {
                 Name = "Prizren",
-                CountryId = 1
+                CountryId = 1,
+                IsDeleted = false,
+                DeletedAt = null
             },
             new City
             {
                 Name = "Mitrovicë",
-                CountryId = 1
+                CountryId = 1,
+                IsDeleted = false,
+                DeletedAt = null
             }
         };
 

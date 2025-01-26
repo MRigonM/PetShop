@@ -73,6 +73,7 @@ public class PetService : IPetService
             {
                 CityId = petCreateRequest.CityId,
                 Address = petCreateRequest.Address,
+                PostalCode = petCreateRequest.PostalCode    
             };
 
             var locationInsertResult = await _locationService.CreateLocationAsync(location);
@@ -87,6 +88,7 @@ public class PetService : IPetService
             pet.Location = locationInsertResult.Value;
             pet.PostedByUserId = _userAccessor.GetUserId();
             pet.Status = PetStatus.Available;
+            pet.CreatedAt = DateTime.UtcNow;
 
             var petId = await _petRepository.InsertAsync(pet);
             var petCreated = await _unitOfWork.SaveChangesAsync() > 0;
@@ -112,6 +114,7 @@ public class PetService : IPetService
                     PetId = pet.Id,
                     ImageUrl = fileName,
                     IsPrimary = i is 0,
+                    UploadedAt = DateTime.UtcNow,
                     Pet = pet
                 };
 
@@ -179,8 +182,17 @@ public class PetService : IPetService
                 _logger.LogWarning("User {UserId} is not authorized to delete Pet with Id: {PetId}", userId, petId);
                 return Result<bool>.Failure(PetErrors.Unauthorized);
             }
+            
+            pet.IsDeleted = true;
+            pet.DeletedAt = DateTimeOffset.UtcNow;
 
             await _petRepository.UpdateAsync(pet);
+            var petDeleted = await _unitOfWork.SaveChangesAsync() > 0;
+            
+            if (petDeleted)
+            {
+                return Result<bool>.Success();
+            }
 
             _logger.LogWarning("Failed to soft-delete Pet with Id: {PetId}. No changes were detected.", petId);
             return Result<bool>.Failure(PetErrors.NoChangesDetected);

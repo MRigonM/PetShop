@@ -25,6 +25,7 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
                 AgeYears = p.AgeYears,
                 About = p.About,
                 Status = p.Status,
+                CreatedAt = p.CreatedAt,
                 BreedId = p.BreedId,
                 LocationId = p.LocationId,
                 PostedByUserId = p.PostedByUserId,
@@ -37,6 +38,7 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
                     {
                         Id = p.Breed.Species.Id,
                         Name = p.Breed.Species.Name,
+                        Description = p.Breed.Species.Description
                     }
                 },
                 Location = new Location
@@ -63,7 +65,15 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
                     ImageUrl = pi.ImageUrl,
                     IsPrimary = pi.IsPrimary,
                     PetId = pi.PetId
-                }).ToList()
+                }).ToList(),
+                User = new ApplicationUser
+                {
+                    Id = p.User.Id,
+                    FirstName = p.User.FirstName,
+                    LastName = p.User.LastName,
+                    Email = p.User.Email,
+                    UserName = p.User.UserName
+                }
             })
             .Where(p => p.Status == PetStatus.Available)
             .AsQueryable();
@@ -129,6 +139,7 @@ public class PetRepository : GenericRepository<Pet, int>, IPetRepository
             .ThenInclude(p => p.Country)
             .Include(pet => pet.Breed)
             .Include(pet => pet.PetImages)
+            .Include(pet => pet.User)
             .ToListAsync();
     }
 }

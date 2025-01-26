@@ -7,7 +7,7 @@ using PetShop.Domain.Entities;
 
 namespace PetShop.Infrastructure.Data;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
     private readonly IConfiguration _configuration;
     
@@ -44,6 +44,30 @@ public class AppDbContext : IdentityDbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Pet>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<Breed>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<Location>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<Country>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<City>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<PetImage>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+
+        modelBuilder.Entity<Species>()
+            .HasQueryFilter(x => x.IsDeleted == false);
+        
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }

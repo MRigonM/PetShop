@@ -49,7 +49,7 @@ public class WebMappingProfile : Profile
         CreateMap<Species, SpeciesViewModel>()
             .ReverseMap(); 
 
-        CreateMap<IdentityUser, UserViewModel>()
+        CreateMap<ApplicationUser, UserViewModel>()
             .ReverseMap(); 
 
         CreateMap<Location, LocationViewModel>()

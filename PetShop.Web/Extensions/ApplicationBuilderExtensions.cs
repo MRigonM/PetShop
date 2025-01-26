@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PetShop.Domain.Entities;
 using PetShop.Domain.Interfaces;
 using PetShop.Infrastructure.Data;
 
@@ -18,11 +20,12 @@ public static class ApplicationBuilderExtensions
 
             var context = services.GetRequiredService<AppDbContext>();
             var unitOfWork = services.GetRequiredService<IUnitOfWork>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
             await context.Database.MigrateAsync();
             logger.LogInformation("Database migration completed.");
 
-            await DataSeeder.SeedData(context, unitOfWork);
+            await DataSeeder.SeedData(context, unitOfWork, userManager);
             logger.LogInformation("Data seeding completed.");
         }
         catch (Exception ex)
