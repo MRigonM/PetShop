@@ -198,4 +198,68 @@ public class PetController : Controller
 
         return RedirectToAction("Details", "Pet", new { id = petCreateResult.Value });
     }
+
+    [Authorize]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var result = await _petService.GetPetByIdAsync(id);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound();
+        }
+
+        var pet = result.Value;
+
+        var breedsResult = await _breedService.GetAllBreedsAsync();
+        var breedsList = breedsResult.Value ?? new List<Breed>();
+
+        var petEdit = new PetEditViewModel
+        {
+            Id = pet.Id,
+            Name = pet.Name,
+            BreedId = pet.BreedId,
+            AgeYears = pet.AgeYears,
+            About = pet.About,
+            Breeds = new SelectList(breedsList, "Id", "Name", pet.BreedId)
+        };
+
+        return View(petEdit);
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Pet pet)
+    {
+        await _petService.UpdatePetAsync(pet);
+        return RedirectToAction("Profile", "Users");
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var petResult = await _petService.GetPetByIdAsync(id);
+        if (!petResult.IsSuccess)
+        {
+            return NotFound();
+        }
+
+        return View(petResult.Value);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var userId = _userAccessor.GetUserId();
+        var result = await _petService.DeletePetAsync(id, userId);
+
+        if (!result.IsSuccess)
+        {
+            result.AddErrorsToModelState(ModelState);
+            return View();
+        }
+
+        return RedirectToAction("Profile", "Users");
+    }
 }
