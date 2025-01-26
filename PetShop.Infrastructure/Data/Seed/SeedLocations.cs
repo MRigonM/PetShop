@@ -22,11 +22,20 @@ public static class SeedLocations
             },
             new Location
             {
-                CityId = 3, // Mitrovica
-                Address = "Rruga Adem Jashari 9",
+                CityId = 2, // Prizren
+                Address = "Rruga e Shadërvanit 15",
+                PostalCode = "20000",
                 IsDeleted = false,
                 DeletedAt = null
             },
+            new Location
+            {
+                CityId = 3, // Mitrovica
+                Address = "Rruga Adem Jashari 9",
+                PostalCode = "40000",
+                IsDeleted = false,
+                DeletedAt = null
+            }
         };
 
         context.Locations.AddRange(locations);
