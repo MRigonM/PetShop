@@ -13,7 +13,7 @@ public class PetCreateRequest
     public int LocationId { get; set; }
     public int CityId { get; set; }
     public string Address { get; set; }
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
     public string PostedByUserId { get; set; }
     public PetStatus Status { get; set; }
     public IEnumerable<IFormFile> ImageFiles { get; set; }

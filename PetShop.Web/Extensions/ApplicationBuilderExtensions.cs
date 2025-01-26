@@ -22,8 +22,15 @@ public static class ApplicationBuilderExtensions
             var unitOfWork = services.GetRequiredService<IUnitOfWork>();
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-            await context.Database.MigrateAsync();
-            logger.LogInformation("Database migration completed.");
+            if ((await context.Database.GetPendingMigrationsAsync()).Any())
+            {
+                await context.Database.MigrateAsync();
+                logger.LogInformation("Database migration completed.");
+            }
+            else
+            {
+                logger.LogInformation("No pending migrations.");
+            }
 
             await DataSeeder.SeedData(context, unitOfWork, userManager);
             logger.LogInformation("Data seeding completed.");

@@ -93,7 +93,37 @@ public static class SeedPetImages
                 ImageUrl = "cat1_4.jpg",
                 IsPrimary = false,
                 IsDeleted = false
-            }
+            },
+            
+            // PetId 2 - Rocky (Labrador Retriever)
+            new PetImage
+            {
+                PetId = 4,
+                ImageUrl = "dog3_1.jpg",
+                IsPrimary = true,
+                IsDeleted = false
+            },
+            new PetImage
+            {
+                PetId = 4,
+                ImageUrl = "dog3_2.jpg",
+                IsPrimary = false,
+                IsDeleted = false
+            },
+            new PetImage
+            {
+                PetId = 4,
+                ImageUrl = "dog3_3.jpg",
+                IsPrimary = false,
+                IsDeleted = false
+            },
+            new PetImage
+            {
+                PetId = 4,
+                ImageUrl = "dog3_4.jpg",
+                IsPrimary = false,
+                IsDeleted = false
+            },
         };
 
         context.PetImages.AddRange(petImages);
