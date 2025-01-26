@@ -40,6 +40,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         {
             throw new ConfigurationErrorsException("The connection string 'DefaultConnection' is missing or empty in the configuration.");
         }
+        
+        optionsBuilder
+            .UseSqlServer(connectionString)
+            .AddInterceptors(new SoftDeleteInterceptor());
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

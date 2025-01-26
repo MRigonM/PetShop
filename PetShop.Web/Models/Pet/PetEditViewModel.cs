@@ -15,6 +15,7 @@ public class PetEditViewModel
     public int CityId { get; set; }
     public int CountryId { get; set; }
     public string Address { get; set; }
+    public string PostalCode { get; set; }
     public SelectList Breeds { get; set; }
     public SelectList Species { get; set; }
     public SelectList Countries { get; set; }
