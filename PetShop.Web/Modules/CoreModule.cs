@@ -18,6 +18,7 @@ public class CoreModule : IModule
     {
         services.Configure<ApiSettings>(_configuration.GetSection(ApiSettings.SectionName));
         services.AddControllersWithViews();
+        services.AddRazorPages();
         services.AddRouting(options => options.LowercaseUrls = true);
         services.AddAutoMapper(typeof(ApplicationMappingProfiles).Assembly, typeof(WebMappingProfile).Assembly);
         services.AddSignalR();

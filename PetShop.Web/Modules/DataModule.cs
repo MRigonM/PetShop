@@ -7,6 +7,7 @@ using PetShop.Domain.Helpers;
 using PetShop.Domain.Interfaces;
 using PetShop.Infrastructure.Data;
 using PetShop.Infrastructure.Repositories;
+using PetShop.Infrastructure.Services;
 
 namespace PetShop.Modules;
 
@@ -39,6 +40,7 @@ public class DataModule : IModule
         services.AddScoped<QueryParams>();
         services.AddScoped<IPetRepository, PetRepository>();
         services.AddScoped<IBreedRepository, BreedRepository>();
+        services.AddScoped<IFileUploaderService, FileUploaderService>();
         services.AddScoped<ISpeciesRepository, SpeciesRepository>();
         services.AddScoped<IPetImageRepository, PetImageRepository>();
         services.AddScoped<ILocationRepository, LocationRepository>();

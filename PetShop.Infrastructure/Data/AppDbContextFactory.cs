@@ -8,8 +8,8 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     public AppDbContext CreateDbContext(string[] args)
     {
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../PetShop.Web"))
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
         
         var connectionString = configuration.GetConnectionString("DefaultConnection");

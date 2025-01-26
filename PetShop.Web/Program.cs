@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddModule(new CoreModule(builder.Configuration));
 builder.Services.AddModule(new AuthModule());
+builder.Services.AddModule(new ValidationModule());
 builder.Services.AddModule(new DataModule(builder.Configuration));
 
 var app = builder.Build();
