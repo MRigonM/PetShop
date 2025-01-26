@@ -5,9 +5,9 @@ namespace PetShop.Application.Interfaces;
 
 public interface ISpeciesService
 {
-    Task<Result<bool>> CreateSpeciesAsync(Species species);
-    Task<Result<List<Species>>> GetAllSpeciesAsync();
-    Task<Result<Species>> GetSpeciesByIdAsync(int speciesId);
-    Task<Result<bool>> UpdateSpeciesAsync(Species species);
-    Task<Result<bool>> DeleteSpeciesAsync(int speciesId);
+    Task<Result<bool>> CreateSpeciesAsync(Species species, CancellationToken cancellationToken);
+    Task<Result<List<Species>>> GetAllSpeciesAsync(CancellationToken cancellationToken);
+    Task<Result<Species>> GetSpeciesByIdAsync(int speciesId, CancellationToken cancellationToken);
+    Task<Result<bool>> UpdateSpeciesAsync(Species species, CancellationToken cancellationToken);
+    Task<Result<bool>> DeleteSpeciesAsync(int speciesId, CancellationToken cancellationToken);
 }
