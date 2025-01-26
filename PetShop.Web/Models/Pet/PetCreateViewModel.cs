@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PetShop.Models.Breed;
 using PetShop.Models.Location;
+using CityViewModel = PetShop.Models.City.CityViewModel;
 
 namespace PetShop.Models.Pet;
 
