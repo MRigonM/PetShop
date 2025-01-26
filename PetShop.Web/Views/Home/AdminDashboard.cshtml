@@ -1,0 +1,52 @@
+﻿<div class="container-fluid">
+    <h1 class="mt-4">Admin Dashboard</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Entities Overview
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Entity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Pets</td>
+                    <td>
+                        <a asp-controller="Dashboard" asp-action="PetDashboard" class="btn btn-primary">View Dashboard</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Species</td>
+                    <td>
+                        <a asp-controller="Dashboard" asp-action="SpeciesDashboard" class="btn btn-primary">View Dashboard</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Breeds</td>
+                    <td>
+                        <a asp-controller="Dashboard" asp-action="BreedDashboard" class="btn btn-primary">View Dashboard</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Countries</td>
+                    <td>
+                        <a asp-controller="Dashboard" asp-action="CountryDashboard" class="btn btn-primary">View Dashboard</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cities</td>
+                    <td>
+                        <a asp-controller="Dashboard" asp-action="CityDashboard" class="btn btn-primary">View Dashboard</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

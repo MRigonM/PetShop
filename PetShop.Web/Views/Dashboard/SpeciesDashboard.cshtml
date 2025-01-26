@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PetShop.Models.Species.SpeciesViewModel>
+
+<div class="container-fluid">
+    <h1 class="mt-4">Species Dashboard</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Species List
+            <a href="@Url.Action("CreateSpecies", "Dashboard")" class="btn btn-primary btn-sm float-end">Add New Species</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var species in Model)
+                {
+                <tr>
+                    <td>@species.Id</td>
+                    <td>@species.Name</td>
+                    <td>
+                        <a href="@Url.Action("EditSpecies", "Dashboard", new { id = species.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("DeleteSpecies", "Dashboard", new { id = species.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

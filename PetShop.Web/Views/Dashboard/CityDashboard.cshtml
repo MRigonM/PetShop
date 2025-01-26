@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PetShop.Models.Location.CityViewModel>
+
+<div class="container-fluid">
+    <h1 class="mt-4">City Dashboard</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            City List
+            <a href="@Url.Action("CreateCity", "Dashboard")" class="btn btn-primary btn-sm float-end">Add New City</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Country ID</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var city in Model)
+                {
+                    <tr>
+                        <td>@city.Id</td>
+                        <td>@city.Name</td>
+                        <td>@city.CountryId</td>
+                        <td>
+                            <a href="@Url.Action("EditCity", "Dashboard", new { id = city.Id })" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="@Url.Action("DeleteCity", "Dashboard", new { id = city.Id })" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

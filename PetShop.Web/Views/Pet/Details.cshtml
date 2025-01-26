@@ -1,0 +1,251 @@
+@inject PetShop.Application.Interfaces.IUserAccessor UserAccessor
+@model PetShop.Models.Pet.PetViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+
+<section class="section bg-gray">
+    <!-- Container Start -->
+    <div class="container">
+        <div class="row d-flex align-items-start">
+            <!-- Ensure flexbox alignment -->
+            <!-- Left sidebar -->
+            <div class="col-lg-8">
+                <div class="product-details">
+                    <!-- Pet Name -->
+                    <h1 class="product-title">@Model.Name</h1>
+                    <div class="product-meta">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><i class="fa fa-user-o"></i> By <a>@Model.User?.FirstName @Model.User?.LastName</a></li>
+                            <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Species: <a>@Model.Breed?.Species?.Name</a></li>
+                            <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Breed: <a>@(Model.Breed?.Name)</a></li>
+                            <li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location: <a>@Model.Location?.Address, @Model.Location?.City?.Name,@Model.Location?.City?.Country?.Name</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="product-slider">
+                        @foreach (var image in Model.PetImages)
+                        {
+                            <div class="product-slider-item my-4"
+                                 data-image="@("/images/pets/" + image.ImageUrl)"
+                                 data-slick-index="@Model.PetImages.IndexOf(image)"
+                                 aria-hidden="@(Model.PetImages.IndexOf(image) == 0 ? "false" : "true")"
+                                 tabindex="@(Model.PetImages.IndexOf(image) == 0 ? "0" : "-1")"
+                                 style="width: 730px;">
+                                <img class="d-block img-fluid w-100"
+                                     src="@(string.IsNullOrEmpty(image.ImageUrl) ? Url.Content("~/images/default-image.webp") : "/images/pets/" + image.ImageUrl)"
+                                     alt="Pet Image">
+                            </div>
+                        }
+
+                        <i class="fa fa-chevron-right arrow-right slick-arrow"></i>
+
+                        <ul class="slick-dots" role="tablist">
+                            @foreach (var image in Model.PetImages)
+                            {
+                                <li class="@(Model.PetImages.IndexOf(image) == 0 ? "slick-active" : "")"
+                                    role="presentation">
+                                    <img class="img-fluid"
+                                         src="@(string.IsNullOrEmpty(image.ImageUrl) ? "/images/default-image.webp" : "/images/pets/" + image.ImageUrl)"
+                                         alt="Pet Image">
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <!-- Product Details Content -->
+                    <div class="content mt-5 pt-5">
+                        <ul class="nav nav-pills justify-content-start" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                   role="tab" aria-controls="pills-home" aria-selected="true">
+                                    Pet Details
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                   role="tab" aria-controls="pills-profile" aria-selected="false">
+                                    Specifications
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                 aria-labelledby="pills-home-tab">
+                                <h3 class="tab-title">About</h3>
+                                <p>@Model.About</p>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                 aria-labelledby="pills-profile-tab">
+                                <h3 class="tab-title">Pet Specifications</h3>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <strong>Species:</strong> @(Model.Breed?.Species?.Name ?? "Unknown")
+                                    </li>
+                                    <li>
+                                        <strong>Breed:</strong> @(Model.Breed?.Name ?? "Unknown")
+                                    </li>
+                                    <li>
+                                        <strong>Age:</strong> @Model.AgeYears
+                                    </li>
+                                    <li>
+                                        <strong>Date Listed:</strong> @Model.CreatedAt.ToString("d MMMM yyyy")
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="widget-user text-center" style="margin-top: 6.9rem !important;">
+                        <img src="/images/users/@(UserAccessor.GetUserInfo("profilepicture") ?? "userAvatar.jpg")"
+                             alt="@UserAccessor.GetUserFirstName()'s Profile Picture" class="rounded-circle user-avatar-image-150" />
+                        <h4 class="text-capitalize">
+                            <a>
+                                @Model.User?.FirstName
+                                @Model.User?.LastName
+                            </a>
+                        </h4>
+                        <p class="member-time">Member Since @Model.CreatedAt.ToString("MMMM yyyy")</p>
+                        <a>See all listings</a>
+                        <ul class="list-inline mt-20">
+                            <li class="list-inline-item">
+                                <a class="btn btn-blue d-inline-block px-lg-5 my-1 px-md-3">
+                                    Message
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-tips mb-3">
+                        <h5 class="widget-header text-center">Safety Tips</h5>
+                        <ul class="list-unstyled text-left">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Meet seller at a public place</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Check the item before you buy</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Pay only after collecting the item</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Check recent photos of the pet.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container End -->
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelModalLabel">Cancel Adoption Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    Are you sure you want to cancel your adoption request?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="confirmCancelButton">Confirm</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function populateDropdown(parentId, allItems, childId, defaultText, parentKey) {
+                const childSelect = document.querySelector(`#${childId}`);
+
+                childSelect.innerHTML = '';
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = `Select ${defaultText}`;
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                defaultOption.hidden = true;
+                defaultOption.classList.add('default-option');
+
+                childSelect.appendChild(defaultOption);
+
+                if (parentId) {
+                    const filteredItems = allItems.filter(item => item[parentKey] === parseInt(parentId));
+
+                    filteredItems.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.id;
+                        option.textContent = item.name;
+                        childSelect.appendChild(option);
+                    });
+
+                }
+
+                $(childSelect).niceSelect('update');
+            }
+
+            $('#CityId').niceSelect();
+            $('#CountryId').niceSelect();
+
+            $('#CountryId').on('change', function () {
+                const countryId = $(this).val();
+                populateDropdown(countryId, allCities, 'CityId', 'City', 'countryId');
+            });
+        })
+    </script>
+
+    <script>
+        function toggleTextArea(groupName, textAreaId) {
+            var radios = document.querySelectorAll('input[name="' + groupName + '"]');
+            var textarea = document.getElementById(textAreaId);
+
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    if (radios[i].value === 'true') {
+                        textarea.disabled = false;
+                    } else {
+                        textarea.disabled = true;
+                        textarea.value = '';
+                    }
+                    break;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleTextArea('HasOutdoorSpace', 'OutdoorSpaceDetails');
+            toggleTextArea('OwnsOtherPets', 'OtherPetsDetails');
+
+            document.querySelectorAll('input[name="HasOutdoorSpace"]').forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    toggleTextArea('HasOutdoorSpace', 'OutdoorSpaceDetails');
+                });
+            });
+
+            document.querySelectorAll('input[name="OwnsOtherPets"]').forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    toggleTextArea('OwnsOtherPets', 'OtherPetsDetails');
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var errorMessage = '@TempData["ErrorMessage"]';
+            if (errorMessage) {
+                toastr.error(errorMessage);
+            }
+        });
+    </script>
+}

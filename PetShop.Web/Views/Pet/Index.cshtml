@@ -1,0 +1,202 @@
+@model PetShop.Models.Pet.PetListViewModel
+
+<script>
+    document.addEventListener("DOMContentLoaded", function ()
+    {
+        const gridViewBtn = document.getElementById("grid-view-btn");
+        const listViewBtn = document.getElementById("list-view-btn");
+        const gridViewContainer = document.getElementById("pet-grid-view-container");
+        const listViewContainer = document.getElementById("pet-list-view-container");
+
+        gridViewBtn.addEventListener("click", function (event)
+        {
+            event.preventDefault();
+            gridViewContainer.style.display = "block";
+            listViewContainer.style.display = "none";
+        });
+
+        listViewBtn.addEventListener("click", function (event)
+        {
+            event.preventDefault();
+            gridViewContainer.style.display = "none";
+            listViewContainer.style.display = "block";
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const searchQuery = getQueryParam("SearchQuery");
+
+        if (searchQuery) {
+            document.getElementById("search-result-heading").innerText = `Results For "${searchQuery}"`;
+        }
+    });
+</script>
+
+<script>
+    function applySorting() {
+        const sortBySelect = document.getElementById("sortBySelect");
+        const [sortBy, sortDescending] = sortBySelect.value.split('|');
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('SortBy', sortBy);
+        urlParams.set('SortDescending', sortDescending);
+
+        window.location.search = urlParams.toString();
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const totalPages = @Model.TotalPages;
+        let currentPage = parseInt(new URLSearchParams(window.location.search).get('PageNumber')) || 1;
+
+        function renderPagination() {
+            const paginationLinks = document.getElementById('pagination-links');
+            paginationLinks.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+
+                const pageLink = document.createElement('a');
+                pageLink.className = 'page-link';
+
+                // Preserve existing query parameters and update the PageNumber
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('PageNumber', i);
+                pageLink.href = `?${urlParams.toString()}`;
+                pageLink.innerText = i;
+
+                pageItem.appendChild(pageLink);
+                paginationLinks.parentNode.insertBefore(pageItem, paginationLinks);
+            }
+
+            document.getElementById('previous-page').classList.toggle('disabled', currentPage <= 1);
+            document.getElementById('next-page').classList.toggle('disabled', currentPage >= totalPages);
+        }
+
+        function navigateToPage(action) {
+            if (action === 'prev' && currentPage > 1) {
+                currentPage--;
+            } else if (action === 'next' && currentPage < totalPages) {
+                currentPage++;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('PageNumber', currentPage);
+            window.location.search = `?${urlParams.toString()}`;
+        }
+
+        window.navigateToPage = navigateToPage;
+
+        renderPagination();
+    });
+</script>
+
+<section class="section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-result bg-gray">
+                    <h2 id="search-result-heading">Results For Pets</h2>
+                    <p>@Model.Pets.Count() Results on @DateTime.Now.ToString("dd MMMM yyyy")</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="category-sidebar">
+                    <partial name="CategorySidebar"/>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="category-search-filter">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-left">
+                            <strong>Sort</strong>
+                            <select id="sortBySelect" onchange="applySorting()">
+                                <option value="price|true">Highest Price</option>
+                                <option value="species|false">Species</option>
+                                <option value="breed|false">Breed</option>
+                                <option value="name|false">Name</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+                            <div class="view">
+                                <strong>Views</strong>
+                                <ul class="list-inline view-switcher">
+                                    <li class="list-inline-item">
+                                        <a href="#!" id="grid-view-btn" onclick="event.preventDefault();"
+                                           class="text-info">
+                                            <i class="fa fa-th-large"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#!" id="list-view-btn" onclick="event.preventDefault();">
+                                            <i class="fa fa-reorder"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pet-grid-view-container">
+                    @if (Model is not null || Model.Pets.Any())
+                    {
+                        <partial name="PetGridView" model="Model"/>
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="alert alert-danger text-center">
+                                An error occurred while displaying the pets. Please try again later.
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div id="pet-list-view-container" style="display:none; margin-bottom: 1rem;">
+                    @if (Model is not null || Model.Pets.Any())
+                    {
+                        <partial name="PetListView" model="Model"/>
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="alert alert-danger text-center">
+                                An error occurred while displaying the pets. Please try again later.
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="pagination justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item" id="previous-page">
+                                <a class="page-link" href="javascript:void(0);" aria-label="Previous" onclick="navigateToPage('prev')">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="pagination-links"></li>
+                            <li class="page-item" id="next-page">
+                                <a class="page-link" href="javascript:void(0);" aria-label="Next" onclick="navigateToPage('next')">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

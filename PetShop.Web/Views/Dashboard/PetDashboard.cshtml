@@ -1,0 +1,101 @@
+﻿@model IEnumerable<PetShop.Models.Pet.PetViewModel>
+
+<div class="container-fluid">
+    <h1 class="mt-4">Pet Dashboard</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Pet List
+            <a asp-controller="Pet" asp-action="Create" class="btn btn-primary btn-sm float-end">Add New Pet</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Location</th>
+                    <th>Owner</th>
+                    <th>Age (Years)</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var pet in Model)
+                {
+                    <tr>
+                        <td>@pet.Id</td>
+                        <td>@pet.Name</td>
+                        <td>@pet.Breed?.Name</td>
+                        <td>@pet.Location?.Address</td>
+                        <td>@pet.User?.FirstName</td>
+                        <td>@pet.AgeYears</td>
+                        <td>@pet.CreatedAt.ToString("g")</td>
+                        <td>
+                            <li class="list-inline-item">
+                                <form asp-controller="Pet" asp-action="Edit" method="get">
+                                    <input type="hidden" name="id" value="@pet.Id" />
+                                    <button type="submit"
+                                            class="btn btn-warning btn-sm"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Edit">
+                                        Edit
+                                    </button>
+                                </form>
+                            </li>
+                            <a asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id" class="btn btn-info btn-sm">Details</a>
+                            <li class="list-inline-item">
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm"
+                                        data-toggle="modal" data-target="#deleteConfirmationModal"
+                                        onclick="setDeleteFormAction('@pet.Id', '@pet.Name')"
+                                        title="Delete">
+                                    Delete
+                                </button>
+                                <form id="deleteForm-@pet.Id" asp-controller="Pet" asp-action="Delete" method="post" style="display:none;">
+                                    <input type="hidden" name="id" value="@pet.Id"/>
+                                </form>
+                            </li>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-40">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                Are you sure you want to delete your pet, <span id="petName"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-green" id="confirmDeleteButton">Confirm</button>
+                <button type="button" class="btn btn-red-outline" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script>
+    function setDeleteFormAction(petId, petName) {
+        document.getElementById('petName').textContent = petName;
+
+        document.getElementById('confirmDeleteButton').onclick = function () {
+            document.getElementById('deleteForm-' + petId).submit();
+        };
+    }
+</script>
