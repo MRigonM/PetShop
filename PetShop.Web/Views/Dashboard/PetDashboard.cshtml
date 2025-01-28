@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PetShop.Models.Pet.PetViewModel>
+﻿@model PetShop.Models.Pet.PetListViewModel
 
 <div class="container-fluid">
     <h1 class="mt-4">Pet Dashboard</h1>
@@ -24,51 +24,71 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var pet in Model)
+                @foreach (var pet in Model.Pets)
                 {
-                    <tr>
-                        <td>@pet.Id</td>
-                        <td>@pet.Name</td>
-                        <td>@pet.Breed?.Name</td>
-                        <td>@pet.Location?.Address</td>
-                        <td>@pet.User?.FirstName</td>
-                        <td>@pet.AgeYears</td>
-                        <td>@pet.CreatedAt.ToString("g")</td>
-                        <td>
-                            <li class="list-inline-item">
-                                <form asp-controller="Pet" asp-action="Edit" method="get">
-                                    <input type="hidden" name="id" value="@pet.Id" />
-                                    <button type="submit"
-                                            class="btn btn-warning btn-sm"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Edit">
-                                        Edit
-                                    </button>
-                                </form>
-                            </li>
-                            <a asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id" class="btn btn-info btn-sm">Details</a>
-                            <li class="list-inline-item">
+                <tr>
+                    <td>@pet.Id</td>
+                    <td>@pet.Name</td>
+                    <td>@pet.Breed?.Name</td>
+                    <td>@pet.Location?.Address</td>
+                    <td>@pet.User?.FirstName</td>
+                    <td>@pet.AgeYears</td>
+                    <td>@pet.CreatedAt.ToString("g")</td>
+                    <td>
+                        <li class="list-inline-item">
+                            <form asp-controller="Pet" asp-action="Edit" method="get">
+                                <input type="hidden" name="id" value="@pet.Id" />
                                 <button type="submit"
-                                        class="btn btn-danger btn-sm"
-                                        data-toggle="modal" data-target="#deleteConfirmationModal"
-                                        onclick="setDeleteFormAction('@pet.Id', '@pet.Name')"
-                                        title="Delete">
-                                    Delete
+                                        class="btn btn-warning btn-sm"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Edit">
+                                    Edit
                                 </button>
-                                <form id="deleteForm-@pet.Id" asp-controller="Pet" asp-action="Delete" method="post" style="display:none;">
-                                    <input type="hidden" name="id" value="@pet.Id"/>
-                                </form>
-                            </li>
-                        </td>
-                    </tr>
+                            </form>
+                        </li>
+                        <a asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id" class="btn btn-info btn-sm">Details</a>
+                        <li class="list-inline-item">
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#deleteConfirmationModal"
+                                    onclick="setDeleteFormAction('@pet.Id', '@pet.Name')"
+                                    title="Delete">
+                                Delete
+                            </button>
+                            <form id="deleteForm-@pet.Id" asp-controller="Pet" asp-action="Delete" method="post" style="display:none;">
+                                <input type="hidden" name="id" value="@pet.Id"/>
+                            </form>
+                        </li>
+                    </td>
+                </tr>
                 }
                 </tbody>
             </table>
+
+            <!-- Pagination Component -->
+            <div class="pagination justify-content-center mt-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item" id="previous-page">
+                            <a class="page-link" href="javascript:void(0);" aria-label="Previous" onclick="navigateToPage('prev')">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li id="pagination-links"></li>
+                        <li class="page-item" id="next-page">
+                            <a class="page-link" href="javascript:void(0);" aria-label="Next" onclick="navigateToPage('next')">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-40">
         <div class="modal-content">
@@ -88,7 +108,6 @@
         </div>
     </div>
 </div>
-}
 
 <script>
     function setDeleteFormAction(petId, petName) {
@@ -98,4 +117,58 @@
             document.getElementById('deleteForm-' + petId).submit();
         };
     }
+
+    function navigateToPage(direction) {
+        // Example function for pagination navigation
+        console.log("Navigate to page:", direction);
+    }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const totalPages = @Model.TotalPages;
+        let currentPage = parseInt(new URLSearchParams(window.location.search).get('PageNumber')) || 1;
+
+        function renderPagination() {
+            const paginationLinks = document.getElementById('pagination-links');
+            paginationLinks.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+
+                const pageLink = document.createElement('a');
+                pageLink.className = 'page-link';
+
+                // Preserve existing query parameters and update the PageNumber
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('PageNumber', i);
+                pageLink.href = `?${urlParams.toString()}`;
+                pageLink.innerText = i;
+
+                pageItem.appendChild(pageLink);
+                paginationLinks.parentNode.insertBefore(pageItem, paginationLinks);
+            }
+
+            document.getElementById('previous-page').classList.toggle('disabled', currentPage <= 1);
+            document.getElementById('next-page').classList.toggle('disabled', currentPage >= totalPages);
+        }
+
+        function navigateToPage(action) {
+            if (action === 'prev' && currentPage > 1) {
+                currentPage--;
+            } else if (action === 'next' && currentPage < totalPages) {
+                currentPage++;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('PageNumber', currentPage);
+            window.location.search = `?${urlParams.toString()}`;
+        }
+
+        window.navigateToPage = navigateToPage;
+
+        renderPagination();
+    });
 </script>
