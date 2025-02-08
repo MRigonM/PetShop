@@ -21,6 +21,7 @@ public static class ApplicationBuilderExtensions
             var context = services.GetRequiredService<AppDbContext>();
             var unitOfWork = services.GetRequiredService<IUnitOfWork>();
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
             if ((await context.Database.GetPendingMigrationsAsync()).Any())
             {
@@ -32,7 +33,7 @@ public static class ApplicationBuilderExtensions
                 logger.LogInformation("No pending migrations.");
             }
 
-            await DataSeeder.SeedData(context, unitOfWork, userManager);
+            await DataSeeder.SeedData(context, unitOfWork, userManager, roleManager);
             logger.LogInformation("Data seeding completed.");
         }
         catch (Exception ex)

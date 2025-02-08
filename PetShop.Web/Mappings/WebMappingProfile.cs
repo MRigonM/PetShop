@@ -62,5 +62,7 @@ public class WebMappingProfile : Profile
             .ReverseMap(); 
 
         CreateMap<PetCreateViewModel, PetCreateRequest>();
+        CreateMap<SpeciesCreateViewModel, Species>();
+
     }
 }

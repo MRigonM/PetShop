@@ -7,9 +7,9 @@ namespace PetShop.Infrastructure.Data;
 
 public class DataSeeder
 {
-    public static async Task SeedData(AppDbContext context, IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
+    public static async Task SeedData(AppDbContext context, IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager)
     {
-        await SeedUsers.SeedUserData(userManager);
+        await SeedUsers.SeedUserData(userManager,roleManager);
         await SeedSpecies.SeedSpeciesData(context);
         await SeedBreeds.SeedBreedData(context);
         await SeedCountries.SeedCountryData(context);
