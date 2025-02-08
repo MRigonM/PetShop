@@ -12,7 +12,8 @@ public class AuthModule : IModule
     public void Load(IServiceCollection services)
     {
         services
-            .AddIdentity<ApplicationUser, IdentityRole>()
+            .AddDefaultIdentity<ApplicationUser>()
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 

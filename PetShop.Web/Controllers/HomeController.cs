@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Application.Interfaces;
 using PetShop.Domain.Helpers;
@@ -38,6 +39,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult AdminDashboard()
     {
         return View();

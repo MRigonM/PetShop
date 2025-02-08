@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PetShop.Models.Location.CountryViewModel>
+
+<div class="container-fluid">
+    <h1 class="mt-4">Country Dashboard</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Country List
+            <a href="@Url.Action("Create", "Country")" class="btn btn-primary btn-sm float-end">Add New Country</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Is Deleted</th>
+                    <th>Deleted At</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var country in Model)
+                {
+                    <tr>
+                        <td>@country.Id</td>
+                        <td>@country.Name</td>
+                        <td>@country.IsDeleted</td>
+                        <td>@(country.DeletedAt?.ToString("g") ?? "N/A")</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Country", new { id = country.Id })" class="btn btn-warning btn-sm">Edit</a>
+                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(@country.Id, '@country.Name')">Delete</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <strong id="countryName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form id="deleteForm" asp-action="Delete" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(countryId, countryName) {
+        document.getElementById("countryName").textContent = countryName;
+        document.getElementById("deleteForm").action = "/Country/Delete/" + countryId;
+        $("#deleteModal").modal("show");
+    }
+</script>
